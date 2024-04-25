@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Simulasi Pembayaran THR</title>
+</head>
+<body>
+    <h2>Simulasi Pembayaran THR</h2>
+    <label for="gajiPokok">Gaji Pokok:</label>
+    <input type="number" id="gajiPokok"><br><br>
+    
+    <label for="tunjanganTetap">Tunjangan Tetap:</label>
+    <input type="number" id="tunjanganTetap"><br><br>
+    
+    <label for="masaKerja">Masa Kerja (dalam bulan):</label>
+    <input type="number" id="masaKerja"><br><br>
+    
+    <button onclick="hitungTHR()">Hitung Pembayaran THR</button><br><br>
+    
+    <p id="hasilTHR"></p>
+
+    <script>
+        function hitungTHR() {
+            var gajiPokok = parseFloat(document.getElementById("gajiPokok").value);
+            var tunjanganTetap = parseFloat(document.getElementById("tunjanganTetap").value);
+            var masaKerja = parseInt(document.getElementById("masaKerja").value);
+            
+            var totalGaji = gajiPokok + tunjanganTetap;
+            var thr = 0;
+            var pph = 0;
+            var totalPembayaran = 0;
+
+            if (masaKerja >= 12) {
+                thr = totalGaji;
+            } else {
+                thr = (masaKerja / 12) * totalGaji;
+            }
+
+            if (totalGaji > 4500000) {
+                pph = totalGaji * 0.05;
+            }
+
+            totalPembayaran = thr - pph;
+
+            var hasilTHR = document.getElementById("hasilTHR");
+            hasilTHR.innerHTML = "THR yang anda terima: Rp " + thr.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,') + "<br>" +
+                                  "PPH Ps. 21: Rp " + pph.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,') + "<br>" +
+                                  "Total Pembayaran: Rp " + totalPembayaran.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,') + ".";
+        }
+    </script>
+</body>
+</html>
